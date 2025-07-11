@@ -33,6 +33,12 @@ Este projeto demonstra um fluxo completo de automação de testes com **Cypress*
 
 ---
 
+## 📦 Pré-requisitos
+- Node.js instalado (recomendado: v18+)
+- Git instalado
+  
+---
+
 ## 🛠️ Comandos Úteis
 
 ```bash
