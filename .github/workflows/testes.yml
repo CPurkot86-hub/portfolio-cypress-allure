@@ -13,24 +13,29 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false
 
       - name: Instala dependências
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Executa testes Cypress headless
-        run: npx cypress run || true
+        run: npx cypress run || true  # permite continuar mesmo que falhe
 
       - name: Gera resultados do Allure
         run: |
           mkdir -p allure-results
           cp -r cypress/reports/allure-results/* allure-results || true
 
+      - name: Instala o Allure CLI
+        run: |
+          npm install -g allure-commandline --save-dev
+
+      - name: Gera relatório HTML do Allure
+        run: |
+          mkdir -p allure-report
+          allure generate allure-results -o allure-report --clean
+
       - name: Publica relatório no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-results
-          publish_branch: gh-pages
+          publish_dir: ./allure-report
