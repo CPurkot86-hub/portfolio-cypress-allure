@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run",
+  "test": "npx cypress run",
   "allure:generate": "allure generate allure-results --clean",
-  "allure:open": "allure open",
-  "allure:report": "npm run allure:generate && npm run allure:open",
+  "allure:open": "allure open"
   },
   "keywords": [],
   "author": "",
