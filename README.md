@@ -1,4 +1,4 @@
-# 🚀 Portfólio de Testes Automatizados com Cypress + Allure + I
+# 🚀 Portfólio de Testes Automatizados com Cypress + Allure + IA
 
 Este projeto demonstra um fluxo completo de automação de testes com **Cypress**, geração de relatórios com **Allure**, **integração contínua via GitHub Actions**, publicação automática do relatório via **GitHub Pages**, e **sugestões por IA** para falhas e melhorias nos testes.
 ---
