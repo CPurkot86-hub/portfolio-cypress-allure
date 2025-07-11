@@ -1,3 +1,3 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2152","Deve buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 03:27:39 UTC 2025","passed","Fri Jul 11 03:27:41 UTC 2025","","Busca de produtos - Loja da Construção","",""
-"","14301","Deve falhar ao buscar por cimento (sem sugestões)","","Fri Jul 11 03:27:25 UTC 2025","failed","Fri Jul 11 03:27:39 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","13098","Deve falhar ao buscar por cimento (sem sugestões)","","Fri Jul 11 03:55:04 UTC 2025","failed","Fri Jul 11 03:55:17 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","1700","Deve buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 03:55:17 UTC 2025","passed","Fri Jul 11 03:55:19 UTC 2025","","Busca de produtos - Loja da Construção","",""
