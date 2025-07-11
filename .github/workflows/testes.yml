@@ -18,16 +18,16 @@ jobs:
         run: npm ci
 
       - name: Executa testes Cypress headless
-        run: npx cypress run || true  # permite continuar mesmo que falhe
+        run: |
+          npx cypress run || echo "Testes falharam, gerando relatório mesmo assim"
 
       - name: Gera resultados do Allure
         run: |
           mkdir -p allure-results
-          cp -r cypress/reports/allure-results/* allure-results || true
+          cp -r cypress/allure-results/* allure-results || echo "Sem arquivos de resultado"
 
       - name: Instala o Allure CLI
-        run: |
-          npm install -g allure-commandline --save-dev
+        run: npm install -g allure-commandline --save-dev
 
       - name: Gera relatório HTML do Allure
         run: |
