@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  pull_request:
 
 jobs:
   tests:
@@ -13,20 +14,29 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Instala Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Instala dependências
         run: npm ci
 
       - name: Executa testes Cypress headless
         run: npx cypress run
+        env:
+          TERM: xterm  # Corrige erro "no $TERM and no -T specified"
 
       - name: Gera relatório do Allure
+        if: always()  # Executa mesmo se os testes falharem
         uses: simple-elf/allure-report-action@master
         with:
-          allure_results: allure-results
-          allure_report: allure-report
-          gh_pages: gh-pages
+          results-directory: allure-results
+          report-directory: allure-report
+          keep-reports: 10
 
       - name: Publica relatório no GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
