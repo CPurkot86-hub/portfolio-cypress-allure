@@ -17,22 +17,17 @@ jobs:
       - name: Instala dependências
         run: npm ci
 
-      - name: Executa testes Cypress headless
-        run: npx cypress run || true  # permite continuar mesmo que falhe
+      - name: Limpa resultados anteriores do Allure
+        run: rm -rf allure-results allure-report
 
-      - name: Gera resultados do Allure
-        run: |
-          mkdir -p allure-results
-          cp -r cypress/reports/allure-results/* allure-results || true
+      - name: Executa testes Cypress headless com Allure
+        run: npx cypress run --env allure=true || true
 
       - name: Instala o Allure CLI
-        run: |
-          npm install -g allure-commandline --save-dev
+        run: npm install -g allure-commandline --save-dev
 
       - name: Gera relatório HTML do Allure
-        run: |
-          mkdir -p allure-report
-          allure generate allure-results -o allure-report --clean
+        run: allure generate allure-results -o allure-report --clean
 
       - name: Publica relatório no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
