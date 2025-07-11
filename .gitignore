@@ -1,2 +1,21 @@
-node_modules
+# Node modules
+node_modules/
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+allure-results/
+allure-report/
+
+# Env files
 .env
+
+# Logs
+*.log
+npm-debug.log*
+
+# VSCode settings
+.vscode/
+
+# Output
+dist/
