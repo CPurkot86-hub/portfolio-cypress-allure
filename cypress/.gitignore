@@ -1,0 +1,8 @@
+# Ignora dependências e relatórios
+node_modules/
+allure-report/
+allure-results/
+
+# Logs e arquivos de ambiente
+*.log
+.env
