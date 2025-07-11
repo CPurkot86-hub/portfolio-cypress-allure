@@ -2,30 +2,31 @@ name: Executar testes Cypress com Allure
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🔄 Checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: 📦 Instala dependências
+      - name: Instala dependências
         run: npm ci
 
-      - name: 🚀 Executa testes Cypress headless
+      - name: Executa testes Cypress headless
         run: npx cypress run
 
-      - name: 📁 Gera resultados do Allure
-        run: |
-          mkdir -p allure-results
-          npx allure generate allure-results --clean -o allure-report
+      - name: Gera relatório do Allure
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: allure-results
+          allure_report: allure-report
+          gh_pages: gh-pages
 
-      - name: 📤 Publica relatório no GitHub Pages
+      - name: Publica relatório no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
