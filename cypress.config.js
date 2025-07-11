@@ -7,12 +7,11 @@ module.exports = defineConfig({
       allureWriter(on, config); // Habilita o plugin do Allure
       return config;
     },
-    // baseUrl removido, pois você já usa URLs completas
-    specPattern: 'cypress/e2e/**/*.cy.{js,ts}',
-    supportFile: 'cypress/support/e2e.js'
+    // baseUrl removido, pois você já usa URLs completas no cy.visit()
+    specPattern: 'cypress/e2e/**/*.cy.{js,ts}', // Onde ficam seus testes
+    supportFile: 'cypress/support/e2e.js'       // Arquivo de suporte
   },
-  reporter: 'cypress-mochawesome-reporter', // pode manter se estiver usando
   env: {
-    allure: true
+    allure: true // Ativa o plugin Allure
   }
 });
