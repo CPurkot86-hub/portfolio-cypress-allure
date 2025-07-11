@@ -1,4 +1,4 @@
-## 🚀 Portfólio de Testes Automatizados com Cypress + Allure + IA
+# 🚀 Portfólio de Testes Automatizados com Cypress + Allure + I
 
 Este projeto demonstra um fluxo completo de automação de testes com **Cypress**, geração de relatórios com **Allure**, **integração contínua via GitHub Actions**, publicação automática do relatório via **GitHub Pages**, e **sugestões por IA** para falhas e melhorias nos testes.
 ---
@@ -33,48 +33,62 @@ Este projeto demonstra um fluxo completo de automação de testes com **Cypress*
 
 ---
 
-## 🧪 Comandos Úteis
+## 🛠️ Comandos Úteis
 
 ```bash
 # Rodar os testes em modo headless
 npm run test
 
 # Abrir o Cypress com interface
-npm run cypress:open
+npx cypress open
 
 # Gerar e abrir o relatório Allure localmente
 npm run report
-
+```
+---
 
 ## 💻 Clonar e Executar Localmente
+
 ```bash
 git clone https://github.com/CPurkot86-hub/portfolio-cypress-allure.git
 cd portfolio-cypress-allure
 npm install
 npm run test
 npm run report
-
+```
+🧪 Apenas verifique:
+```bash
+1-Se o package.json do projeto já inclui:
+"devDependencies": {
+  "cypress": "...",
+  "@shelex/cypress-allure-plugin": "...",
+  "allure-commandline": "..."
+}
+2-Se o npm run report está configurado corretamente no scripts:
+"scripts": {
+  "report": "allure generate --clean && allure open"
+}
+```
 ---
 
 ## 🤖 Diagnóstico com IA
 Ao ocorrer uma falha no teste, o relatório Allure pode exibir explicações automáticas e sugestões inteligentes com base na falha identificada.
 
-💡 Exemplo de falha analisada:
-❌ Teste falhou: não foi encontrado o seletor .search-item
-
-✅ Sugestão da IA: Verifique se o elemento foi renderizado corretamente ou aumente o tempo de espera (timeout).
+💡 **Exemplo de falha analisada:**
+- ❌ **Teste falhou:** não foi encontrado o seletor `.search-item`
+- ✅ **Sugestão da IA:** Verifique se o elemento foi renderizado corretamente ou aumente o tempo de espera (timeout).
 
 ---
 
+## ⚙️ Tecnologias Utilizadas
+- ✅ **Cypress** – Testes E2E  
+- ✅ **Allure Reports** – Visualização rica dos testes  
+- ✅ **@shelex/cypress-allure-plugin**  
+- ✅ **GitHub Actions** – Integração contínua  
+- ✅ **GitHub Pages** – Publicação automática de relatórios  
+- ✅ **Integração com IA** – Diagnóstico e sugestões automatizadas
 
-⚙️ Tecnologias Utilizadas
-✅ Cypress – Testes E2E
-✅ Allure Reports – Visualização rica dos testes
-✅ @shelex/cypress-allure-plugin
-✅ GitHub Actions – Integração contínua
-✅ GitHub Pages – Publicação automática de relatórios
-✅ Integração com IA – Diagnóstico e sugestões automatizadas
-
+---
 
 ✍️ Autor
 Cleverson da Silva Purkot
