@@ -11,23 +11,25 @@ Este projeto demonstra um fluxo completo de automação de testes com **Cypress*
 
 🔗 **Acesse o relatório completo**: [📈 Allure Report](https://cpurkot86-hub.github.io/portfolio-cypress-allure/)
 
-📷 **Exemplo de visualização do Allure Report:**
+📷 **Exemplo de visualização do Allure Report**:
 
-![Allure Report Print](./.github/assets/allure-print.png)
+![Allure Report Print](.github/assets/allure-print.png)
 
 ---
 
 ## 📁 Estrutura do Projeto
 
-📁 Estrutura do Projeto
+```
 📁 cypress/
-📁 e2e/ → Testes automatizados
-📁 support/ → Suporte (hooks, comandos)
-📁 reports/ → Resultados Allure
-📁 .github/workflows/ → Pipelines GitHub Actions
-📄 cypress.config.js → Configuração Cypress
+ ┣ 📁 e2e/ → Testes automatizados
+ ┣ 📁 support/ → Suporte (hooks, comandos)
+ ┣ 📁 reports/ → Resultados Allure
+📁 .github/
+ ┗ 📁 workflows/ → Pipelines GitHub Actions
+📄 cypress.config.js → Configuração do Cypress
 📄 package.json → Dependências e scripts
 📄 README.md → Documentação
+```
 
 ---
 
@@ -43,18 +45,27 @@ npm run cypress:open
 # Gerar e abrir o relatório Allure localmente
 npm run report
 
-💻 Clonar e Executar Localmente
+
+## 💻 Clonar e Executar Localmente
+```bash
 git clone https://github.com/CPurkot86-hub/portfolio-cypress-allure.git
 cd portfolio-cypress-allure
 npm install
 npm run test
 npm run report
 
+---
 
-🤖 Diagnóstico com IA
-Ao ocorrer uma falha no teste, o relatório pode conter explicações e sugestões inteligentes com base na falha identificada. Exemplo:
+## 🤖 Diagnóstico com IA
+Ao ocorrer uma falha no teste, o relatório Allure pode exibir explicações automáticas e sugestões inteligentes com base na falha identificada.
+
+💡 Exemplo de falha analisada:
 ❌ Teste falhou: não foi encontrado o seletor .search-item
+
 ✅ Sugestão da IA: Verifique se o elemento foi renderizado corretamente ou aumente o tempo de espera (timeout).
+
+---
+
 
 ⚙️ Tecnologias Utilizadas
 ✅ Cypress – Testes E2E
