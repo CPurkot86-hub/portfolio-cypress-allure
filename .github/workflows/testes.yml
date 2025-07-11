@@ -1,37 +1,32 @@
-name: Cypress Tests with Allure
+name: Executar testes Cypress com Allure
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
-  cypress-run:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 🔄 Checkout do código
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
+      - name: 📦 Instala dependências
         run: npm ci
 
-      - name: Run Cypress tests
-        run: |
-          npx cypress run --env allure=true
+      - name: 🚀 Executa testes Cypress headless
+        run: npx cypress run
 
-      - name: Generate Allure report
+      - name: 📁 Gera resultados do Allure
         run: |
+          mkdir -p allure-results
           npx allure generate allure-results --clean -o allure-report
 
-      - name: Upload Allure report as artifact
-        uses: actions/upload-artifact@v3
+      - name: 📤 Publica relatório no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: allure-report
-          path: allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
