@@ -18,5 +18,5 @@ Timed out retrying after 10000ms: Expected to find element: `.search-item`, but 
 - Valide o seletor `.search-item` manualmente no navegador.
 - Utilize `cy.get('.search-item').should('not.exist')` se a ausência do item for esperada.
 - Verifique os dados mockados, interceptações ou estado da aplicação no início do teste.
-","13980","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Fri Jul 11 07:18:08 UTC 2025","failed","Fri Jul 11 07:18:22 UTC 2025","","Busca de produtos - Loja da Construção","",""
-"","2550","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 07:18:22 UTC 2025","passed","Fri Jul 11 07:18:25 UTC 2025","","Busca de produtos - Loja da Construção","",""
+","12842","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Fri Jul 11 07:25:21 UTC 2025","failed","Fri Jul 11 07:25:34 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","1700","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 07:25:34 UTC 2025","passed","Fri Jul 11 07:25:36 UTC 2025","","Busca de produtos - Loja da Construção","",""
