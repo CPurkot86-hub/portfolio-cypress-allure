@@ -1,4 +1,4 @@
-name: Executar testes Cypress com Allure
+name: Executar testes Cypress com Allure e IA
 
 on:
   push:
@@ -7,27 +7,30 @@ on:
     branches: [main]
 
 jobs:
-  tests:
+  cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Instala dependências
+      - name: Instala dependências do projeto
         run: npm ci
 
       - name: Limpa resultados anteriores do Allure
         run: rm -rf allure-results allure-report
 
       - name: Executa testes Cypress headless com Allure
-        run: npx cypress run --env allure=true || true
+        run: npm run test:run || true
+
+      - name: Análise de falhas com IA (se houver)
+        run: npm run analyze:failures
 
       - name: Instala o Allure CLI
         run: npm install -g allure-commandline --save-dev
 
       - name: Gera relatório HTML do Allure
-        run: allure generate allure-results -o allure-report --clean
+        run: npm run report:generate
 
       - name: Publica relatório no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

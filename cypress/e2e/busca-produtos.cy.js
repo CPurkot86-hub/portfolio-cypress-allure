@@ -16,7 +16,7 @@ describe('Busca de produtos - Loja da Construção', () => {
     cy.visit('https://www.lojaconstrucao.com.br');
   });
 
-  it('Deve falhar ao buscar por cimento (sem sugestões)', () => {
+  it('Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA', () => {
     // Adiciona parâmetro visível no relatório para esse cenário
     cy.allure().parameter('Produto buscado', 'cimento');
 
@@ -32,7 +32,7 @@ describe('Busca de produtos - Loja da Construção', () => {
       .and('have.length.greaterThan', 0); // Esse teste provavelmente falha (como esperado)
   });
 
-  it('Deve buscar por cimento e validar produto Tocantins no DOM', () => {
+  it('Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM', () => {
     cy.allure().parameter('Produto esperado', 'Cimento Tocantins TODAS AS OBRAS 25Kg');
 
     // Step: digitação no campo de busca
