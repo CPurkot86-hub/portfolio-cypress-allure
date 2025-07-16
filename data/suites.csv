@@ -1,5 +1,5 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2384","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 13:35:06 UTC 2025","passed","Fri Jul 11 13:35:08 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","1992","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Wed Jul 16 16:47:08 UTC 2025","passed","Wed Jul 16 16:47:10 UTC 2025","","Busca de produtos - Loja da Construção","",""
 "
 🤖 **Análise da IA:**
 
@@ -19,4 +19,4 @@ Timed out retrying after 10000ms: Expected to find element: `.search-item`, but 
 - Valide o seletor `.search-item` manualmente no navegador.
 - Utilize `cy.get('.search-item').should('not.exist')` se a ausência do item for esperada.
 - Verifique os dados mockados, interceptações ou estado da aplicação no início do teste.
-","12747","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Fri Jul 11 13:34:53 UTC 2025","failed","Fri Jul 11 13:35:06 UTC 2025","","Busca de produtos - Loja da Construção","",""
+","13375","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Wed Jul 16 16:46:55 UTC 2025","failed","Wed Jul 16 16:47:08 UTC 2025","","Busca de produtos - Loja da Construção","",""
