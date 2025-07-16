@@ -1,22 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","1992","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Wed Jul 16 16:47:08 UTC 2025","passed","Wed Jul 16 16:47:10 UTC 2025","","Busca de produtos - Loja da Construção","",""
-"
-🤖 **Análise da IA:**
-
-🧪 **Cenário:** Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA
-
-📌 **Erro detectado:**
-```
-Timed out retrying after 10000ms: Expected to find element: `.search-item`, but never found it.
-```
-
-💥 **Possíveis causas:**
-- O seletor utilizado pode estar incorreto ou desatualizado.
-- O elemento pode realmente não existir para o cenário testado.
-- A aplicação pode estar retornando uma resposta inesperada ou com erro.
-
-🛠️ **Sugestões de correção:**
-- Valide o seletor `.search-item` manualmente no navegador.
-- Utilize `cy.get('.search-item').should('not.exist')` se a ausência do item for esperada.
-- Verifique os dados mockados, interceptações ou estado da aplicação no início do teste.
-","13375","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Wed Jul 16 16:46:55 UTC 2025","failed","Wed Jul 16 16:47:08 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","3160","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Wed Jul 16 22:13:53 UTC 2025","passed","Wed Jul 16 22:13:56 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"🧠 Análise da IA:
+Erro ao se comunicar com a IA: Variáveis de ambiente não definidas","15043","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Wed Jul 16 22:13:37 UTC 2025","failed","Wed Jul 16 22:13:52 UTC 2025","","Busca de produtos - Loja da Construção","",""
