@@ -1,22 +1,22 @@
 {
   "name": "portifolio-automacao-cypress-purkot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
+    "check:env": "node cypress/test-env.js",
     "clean:allure": "rimraf allure-results",
     "test:run": "npx cypress run --env allure=true",
-    "test:open": "npx cypress open",
     "analyze:failures": "node cypress/scripts/analyze-failures.js",
-    "report:generate": "allure generate allure-results --clean",
-    "report:open": "allure open"
+    "report:generate": "allure generate allure-results --clean -o allure-report",
+    "report:open": "allure open allure-report"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@shelex/cypress-allure-plugin": "^2.41.2",
     "cypress": "^14.5.1",
     "rimraf": "^5.0.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "node-fetch": "^3.3.2"
   }
 }

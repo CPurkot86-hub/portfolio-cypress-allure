@@ -1,17 +1,14 @@
-const { defineConfig } = require('cypress');
-const allureWriter = require('@shelex/cypress-allure-plugin/writer');
+// cypress.config.js
+import { defineConfig } from 'cypress';
+import allureWriter from '@shelex/cypress-allure-plugin/writer.js';
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      allureWriter(on, config); // Habilita o plugin do Allure
+      allureWriter(on, config);
       return config;
     },
-    // baseUrl removido, pois você já usa URLs completas no cy.visit()
-    specPattern: 'cypress/e2e/**/*.cy.{js,ts}', // Onde ficam seus testes
-    supportFile: 'cypress/support/e2e.js'       // Arquivo de suporte
-  },
-  env: {
-    allure: true // Ativa o plugin Allure
+    baseUrl: 'https://www.lojadaconstrucao.com.br', // ajuste conforme sua aplicação
+    specPattern: 'cypress/e2e/**/*.cy.js'
   }
 });
