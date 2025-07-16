@@ -1,82 +1,59 @@
-// Importa o módulo nativo 'fs' para manipular arquivos e diretórios
+// Importa os módulos necessários do Node.js
 const fs = require('fs');
-
-// Importa o módulo 'path' para lidar com caminhos de arquivos de forma segura entre sistemas
 const path = require('path');
+const { analyzeWithIA } = require('../utils/analyzeWithIA');
 
-// Define o caminho para a pasta onde estão os resultados brutos dos testes do Allure
+// Importa a função que faz a análise via IA (arquivo utils/analyzeWithIA.js)
+const { analyzeWithIA } = require('../utils/analyzeWithIA');
+
+// Caminho onde o Cypress e o plugin Allure salvam os resultados dos testes
 const allureResultsPath = './allure-results';
 
-// -------------------------
-// Função principal: percorre os arquivos de resultado do Allure
-// e insere uma análise automática nos testes com falha
-// -------------------------
-function analyzeFailures() {
-  // Lê todos os arquivos do diretório 'allure-results'
-  const files = fs.readdirSync(allureResultsPath);
-
-  // Contador de falhas encontradas (para exibir no final)
+// Função principal que analisa os testes com falha e enriquece com sugestão da IA
+async function analyzeFailures() {
+  const files = fs.readdirSync(allureResultsPath); // Lista os arquivos do diretório
   let failureCount = 0;
 
-  // Para cada arquivo do diretório:
-  files.forEach(file => {
-    // Verifica se é um arquivo de resultado de teste (termina com -result.json)
+  for (const file of files) {
     if (file.endsWith('-result.json')) {
-      const filePath = path.join(allureResultsPath, file); // Caminho completo do arquivo
-      const result = JSON.parse(fs.readFileSync(filePath, 'utf8')); // Lê e transforma em objeto JSON
+      const filePath = path.join(allureResultsPath, file);
+      const result = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-      // Se o teste estiver com status "failed", analisamos
+      // Verifica se o status do teste foi "failed"
       if (result.status === 'failed') {
-        failureCount++; // Incrementa o número de falhas
+        failureCount++;
 
-        // Extrai informações importantes do erro: mensagem e rastreio
-        const message = result.statusDetails.message || '';
-        const trace = result.statusDetails.trace || '';
-        const testName = result.name; // Nome do teste com falha
+        const testName = result.name;
+        const errorMessage = result.statusDetails.message || '';
+        const errorTrace = result.statusDetails.trace || '';
 
-        // Gera um conteúdo simulado de "análise da IA" que será embutido no relatório
-        const analysis = `
-🤖 **Análise da IA:**
+        const fullErrorLog = `${errorMessage}\n${errorTrace}`;
 
-🧪 **Cenário:** ${testName}
+        // Chama a IA passando o erro e aguarda a resposta com análise
+        const aiAnalysis = await analyzeWithIA(fullErrorLog);
 
-📌 **Erro detectado:**
-\`\`\`
-${message}
-\`\`\`
+        // Adiciona a resposta da IA no campo `description`, visível no Allure Report
+        result.description = `
+🤖 **Análise com IA personalizada**
+🧪 Cenário: ${testName}
 
-💥 **Possíveis causas:**
-- O seletor utilizado pode estar incorreto ou desatualizado.
-- O elemento pode realmente não existir para o cenário testado.
-- A aplicação pode estar retornando uma resposta inesperada ou com erro.
+${aiAnalysis}
+        `;
 
-🛠️ **Sugestões de correção:**
-- Valide o seletor \`.search-item\` manualmente no navegador.
-- Utilize \`cy.get('.search-item').should('not.exist')\` se a ausência do item for esperada.
-- Verifique os dados mockados, interceptações ou estado da aplicação no início do teste.
-`;
-
-        // Adiciona a análise no campo 'description' do resultado do teste (aparece no Allure Report)
-        result.description = analysis;
-
-        // Reescreve o arquivo JSON com a nova análise embutida
+        // Sobrescreve o arquivo original com a nova descrição
         fs.writeFileSync(filePath, JSON.stringify(result, null, 2), 'utf8');
-
-        // Exibe no console que a análise foi adicionada
-        console.log(`✅ Análise adicionada ao teste com falha: ${file}`);
+        console.log(`✅ Análise da IA adicionada ao teste com falha: ${file}`);
       }
     }
-  });
+  }
 
-  // Mensagem final para o terminal
+  // Feedback no terminal
   if (failureCount === 0) {
     console.log('🎉 Nenhuma falha encontrada nos testes!');
   } else {
-    console.log(`⚠️ ${failureCount} teste(s) com falha(s) analisado(s) e enriquecido(s) com IA.`);
+    console.log(`⚠️ ${failureCount} teste(s) com falha analisado(s) e atualizado(s) com sugestão da IA.`);
   }
 }
 
-// -------------------------
-// Execução da função (ponto de entrada do script)
-// -------------------------
+// Executa a função
 analyzeFailures();

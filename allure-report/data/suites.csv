@@ -1,22 +1,3 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","3802","Deve buscar por cimento e validar produto Tocantins no DOM","","Fri Jul 11 04:09:06 GMT-03:00 2025","passed","Fri Jul 11 04:09:10 GMT-03:00 2025","","Busca de produtos - Loja da Construção","",""
-"
-🤖 **Análise da IA:**
-
-🧪 **Cenário:** Deve falhar ao buscar por cimento (sem sugestões)
-
-📌 **Erro detectado:**
-```
-Timed out retrying after 10000ms: Expected to find element: `.search-item`, but never found it.
-```
-
-💥 **Possíveis causas:**
-- O seletor utilizado pode estar incorreto ou desatualizado.
-- O elemento pode realmente não existir para o cenário testado.
-- A aplicação pode estar retornando uma resposta inesperada ou com erro.
-
-🛠️ **Sugestões de correção:**
-- Valide o seletor `.search-item` manualmente no navegador.
-- Utilize `cy.get('.search-item').should('not.exist')` se a ausência do item for esperada.
-- Verifique os dados mockados, interceptações ou estado da aplicação no início do teste.
-","15134","Deve falhar ao buscar por cimento (sem sugestões)","","Fri Jul 11 04:08:50 GMT-03:00 2025","failed","Fri Jul 11 04:09:06 GMT-03:00 2025","","Busca de produtos - Loja da Construção","",""
+"","15354","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Wed Jul 16 14:27:23 GMT-03:00 2025","failed","Wed Jul 16 14:27:38 GMT-03:00 2025","","Busca de produtos - Loja da Construção","",""
+"","3693","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Wed Jul 16 14:27:38 GMT-03:00 2025","passed","Wed Jul 16 14:27:42 GMT-03:00 2025","","Busca de produtos - Loja da Construção","",""
