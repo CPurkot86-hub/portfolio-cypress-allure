@@ -117,11 +117,13 @@ npm run report:open
 
 
 ## 🤖 Como Funciona a Análise de Falhas com IA
+```
 1-Após rodar os testes, falhas são salvas em arquivos *-result.json na pasta allure-results/.
 2-O script analyze-failures.js identifica esses arquivos.
 3-Cada erro é enviado via API para a IA configurada.
 4-A resposta da IA é salva no campo description do teste.
 5-Ao gerar o relatório, a descrição estará visível no Allure Report.
+```
 
 💡 **Exemplo de análise da IA**
 🧠 Análise da IA:
