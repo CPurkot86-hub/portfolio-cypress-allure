@@ -26,8 +26,10 @@ jobs:
       - name: Análise de falhas com IA (se houver)
         run: npm run analyze:failures
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        
+          IA_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          IA_API_URL: 'https://openrouter.ai/api/v1/chat/completions'
+          IA_MODEL: 'gpt-4o'
+
       - name: Instala o Allure CLI
         run: npm install -g allure-commandline --save-dev
 
