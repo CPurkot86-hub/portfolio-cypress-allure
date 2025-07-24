@@ -16,7 +16,7 @@ describe('Busca de produtos - Loja da Construção', () => {
     cy.visit('https://www.lojaconstrucao.com.br');
   });
 
-  it('Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA', () => {
+  it('[CT001]- Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA', () => {
     // Adiciona parâmetro visível no relatório para esse cenário
     cy.allure().parameter('Produto buscado', 'cimento');
 
@@ -30,9 +30,9 @@ describe('Busca de produtos - Loja da Construção', () => {
     cy.get('.search-item', { timeout: 10000 })
       .should('contain.text', 'cimento')
       .and('have.length.greaterThan', 0); // Esse teste provavelmente falha (como esperado)
-  });
+  })
 
-  it('Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM', () => {
+  it('[CT001]- Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM', () => {
     cy.allure().parameter('Produto esperado', 'Cimento Tocantins TODAS AS OBRAS 25Kg');
 
     // Step: digitação no campo de busca
@@ -45,5 +45,19 @@ describe('Busca de produtos - Loja da Construção', () => {
     cy.get('h2', { timeout: 10000 })
       .contains('Cimento Tocantins TODAS AS OBRAS 25Kg')
       .should('exist');
-  });
-});
+  })
+
+  it('[CT003]-Deve [FALHAR] buscar por cimento', () => {
+    cy.allure().parameter('Produto esperado', 'CimentUUU');
+
+    cy.allure().step('Digita "cimento" no campo de busca');
+    cy.get('.col-md-12 > .search-element > .d-flex > input', { timeout: 10000 })
+      .type('cimINtuUUU')
+
+    cy.allure().step('Valida se o produto "Cimento Tocantins TODAS AS OBRAS 25Kg" aparece');
+    cy.get('h2', { timeout: 10000 })
+      .contains('Cimento Tocantins TODAS AS OBRAS 25Kg')
+      .should('exist')
+
+  })
+})
