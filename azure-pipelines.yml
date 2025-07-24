@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  CYPRESS_NO_COMMAND_LOG: 1
+  ALLURE_RESULTS_DIR: cypress/results/allure-results
+  ALLURE_REPORT_DIR: cypress/results/allure-report
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: '📦 Usar Node.js 18'
+
+  - script: |
+      npm ci
+    displayName: '📥 Instalar dependências'
+
+  - script: |
+      npx cypress run --env allure=true
+    displayName: '🚀 Rodar testes Cypress'
+
+  - script: |
+      npm run analyze:failures
+    condition: failed()
+    displayName: '🤖 Analisar falhas com IA (se falhar)'
+
+  - script: |
+      npx allure generate $(ALLURE_RESULTS_DIR) --clean -o $(ALLURE_REPORT_DIR)
+    displayName: '📊 Gerar Allure Report'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(ALLURE_REPORT_DIR)'
+      ArtifactName: 'allure-report'
+      publishLocation: 'Container'
+    displayName: '📁 Publicar Allure Report'
