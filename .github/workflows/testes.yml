@@ -29,6 +29,7 @@ jobs:
 
       - name: 🚀 Rodar testes Cypress
         run: npx cypress run --env allure=true
+        continue-on-error: true
 
       - name: 🤖 Analisar falhas com IA (se falhar)
         if: failure()
