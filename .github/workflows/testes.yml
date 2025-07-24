@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -13,16 +14,15 @@ jobs:
       CYPRESS_NO_COMMAND_LOG: 1
       ALLURE_RESULTS_DIR: cypress/results/allure-results
       ALLURE_REPORT_DIR: cypress/results/allure-report
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
     steps:
-      - name: ⬇️ Checkout do código
-        uses: actions/checkout@v3
+      - name: 📥 Checkout do repositório
+        uses: actions/checkout@v4
 
       - name: 📦 Usar Node.js 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
       - name: 📥 Instalar dependências
         run: npm ci
@@ -33,12 +33,15 @@ jobs:
       - name: 🤖 Analisar falhas com IA (se falhar)
         if: failure()
         run: npm run analyze:failures
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: 📊 Gerar Allure Report
-        run: npx allure generate $ALLURE_RESULTS_DIR --clean -o $ALLURE_REPORT_DIR
+        run: |
+          npx allure generate $ALLURE_RESULTS_DIR --clean -o $ALLURE_REPORT_DIR
 
       - name: 📁 Publicar Allure Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: ${{ env.ALLURE_REPORT_DIR }}
