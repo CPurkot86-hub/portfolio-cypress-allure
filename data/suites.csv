@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","1761","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Thu Jul 24 18:39:04 UTC 2025","passed","Thu Jul 24 18:39:05 UTC 2025","","Busca de produtos - Loja da Construção","",""
+"","1979","Deve [SUCESSO] buscar por cimento e validar produto Tocantins no DOM","","Thu Jul 24 18:59:26 UTC 2025","passed","Thu Jul 24 18:59:28 UTC 2025","","Busca de produtos - Loja da Construção","",""
 "🧠 Análise da IA:
-Erro ao se comunicar com a IA: Variáveis de ambiente não definidas","12825","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Thu Jul 24 18:38:51 UTC 2025","failed","Thu Jul 24 18:39:03 UTC 2025","","Busca de produtos - Loja da Construção","",""
+Erro ao se comunicar com a IA: Variáveis de ambiente não definidas","13103","Deve [FALHAR] ao buscar por cimento (sem sugestões) com sugestão IA","","Thu Jul 24 18:59:13 UTC 2025","failed","Thu Jul 24 18:59:26 UTC 2025","","Busca de produtos - Loja da Construção","",""
