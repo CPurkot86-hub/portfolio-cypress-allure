@@ -1,39 +1,44 @@
-name: Executar testes Cypress com Allure e IA
+trigger:
+  branches:
+    include:
+      - main
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+pool:
+  vmImage: 'ubuntu-latest'
 
-jobs:
-  cypress-tests:
-    runs-on: ubuntu-latest
+variables:
+  CYPRESS_NO_COMMAND_LOG: 1
+  ALLURE_RESULTS_DIR: cypress/results/allure-results
+  ALLURE_REPORT_DIR: cypress/results/allure-report
 
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: '📦 Usar Node.js 18'
 
-      - name: Instala dependências do projeto
-        run: npm ci
+  - script: |
+      npm ci
+    displayName: '📥 Instalar dependências'
 
-      - name: Limpa resultados anteriores do Allure
-        run: rm -rf allure-results allure-report
+  - script: |
+      npx cypress run --env allure=true
+    displayName: '🚀 Rodar testes Cypress'
 
-      - name: Executa testes Cypress headless com Allure
-        run: npm run test:run || true
+  - script: |
+      npm run analyze:failures
+    condition: failed()
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}  # <- Aqui é o ponto crítico
+    displayName: '🤖 Analisar falhas com IA (se falhar)'
 
-      - name: Análise de falhas com IA (se houver)
-        run: npm run analyze:failures
+  - script: |
+      npx allure generate $(ALLURE_RESULTS_DIR) --clean -o $(ALLURE_REPORT_DIR)
+    displayName: '📊 Gerar Allure Report'
 
-      - name: Instala o Allure CLI
-        run: npm install -g allure-commandline --save-dev
-
-      - name: Gera relatório HTML do Allure
-        run: npm run report:generate
-
-      - name: Publica relatório no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(ALLURE_REPORT_DIR)'
+      ArtifactName: 'allure-report'
+      publishLocation: 'Container'
+    displayName: '📁 Publicar Allure Report'
