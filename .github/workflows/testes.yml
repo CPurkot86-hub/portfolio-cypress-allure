@@ -25,7 +25,9 @@ jobs:
 
       - name: Análise de falhas com IA (se houver)
         run: npm run analyze:failures
-
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        
       - name: Instala o Allure CLI
         run: npm install -g allure-commandline --save-dev
 
