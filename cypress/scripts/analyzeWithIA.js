@@ -1,76 +1,77 @@
-// Importa o módulo 'node-fetch' para fazer requisições HTTP (necessário no Node.js)
+// Importa o 'fetch' do Node.js para fazer requisições HTTP
 import fetch from 'node-fetch';
 
-// Importa o módulo 'dotenv' para ler variáveis de ambiente definidas em um arquivo .env
+// Importa o dotenv para carregar as variáveis de ambiente do arquivo .env
 import * as dotenv from 'dotenv';
 
-// Carrega as variáveis de ambiente do arquivo .env para o processo atual (Node.js)
+// Carrega as variáveis de ambiente do arquivo .env para o processo atual
 dotenv.config();
 
-// Função principal exportada: recebe o texto do erro e o título do teste como argumentos
+// Exporta uma função assíncrona para análise da falha usando IA
 export async function analyzeErrorWithIA(errorText, testTitle) {
-  // Lê as variáveis de ambiente definidas no repositório ou no arquivo .env
+  // Recupera as variáveis de ambiente necessárias
   const API_KEY = process.env.IA_API_KEY;
   const API_URL = process.env.IA_API_URL;
   const MODEL = process.env.IA_MODEL;
 
-  // Validação de segurança: garante que todas as variáveis estejam configuradas
+  // Verifica se as variáveis estão definidas corretamente
   if (!API_KEY || !API_URL || !MODEL) {
     console.warn("⚠️ Variáveis de ambiente da IA não configuradas corretamente.");
-    return "Erro ao se comunicar com a IA: Variáveis de ambiente não definidas";
+    return "❌ Erro ao se comunicar com a IA: Variáveis de ambiente não definidas.";
   }
 
   try {
-    // Realiza a chamada HTTP POST para o endpoint da IA
+    // Monta a requisição para a IA com o modelo e contexto
     const response = await fetch(API_URL, {
-      method: "POST", // Método HTTP usado
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${API_KEY}`, // Envia o token de autenticação no header
-        'Content-Type': 'application/json'     // Define o formato da requisição como JSON
+        'Authorization': `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Parâmetros da requisição que serão enviados à IA
-        model: MODEL, // Modelo de IA a ser utilizado (ex: openai/gpt-4, anthropic/claude-3-haiku)
-
-        // Mensagens no formato esperado pela API (estilo OpenAI)
+        model: MODEL,
         messages: [
           {
-            role: "system", // Define o "papel" da IA para responder com o tom adequado
-            content: "Você é um analista de QA sênior. Responda com markdown, usando estrutura clara e emojis para exibição em relatórios Allure."
+            role: "system",
+            content: "Você é um analista de QA sênior que ajuda times a entenderem falhas automatizadas de testes E2E. Sua resposta deve conter título visual com emoji e uma explicação estruturada."
           },
           {
-            role: "user", // Mensagem do usuário com o contexto real do erro
-            content: `
-### 🧠 Análise técnica do erro de teste
-
-**Título do teste:** ${testTitle}
-
-**Erro encontrado:**
-\`\`\`
-${errorText}
-\`\`\`
-
-Por favor, explique de forma técnica o que pode ter causado esse erro, liste possíveis causas numeradas e sugestões de correção em uma seção separada.
-`
+            role: "user",
+            content: `Explique tecnicamente o seguinte erro de teste e organize em tópicos:\n\n🧪 Título: ${testTitle}\n\n❗Erro capturado:\n${errorText}`
           }
         ]
       })
     });
 
-    // Espera a resposta da API e converte para JSON
+    // Transforma a resposta em JSON
     const data = await response.json();
 
-    // Verifica se a resposta veio corretamente no formato esperado
+    // Se a IA retornou uma explicação válida
     if (data?.choices?.[0]?.message?.content) {
-      // Retorna o conteúdo da resposta, já formatado em markdown para o Allure
-      return data.choices[0].message.content.trim();
+      const explanation = data.choices[0].message.content.trim();
+
+      // Verifica e adiciona emojis conforme o tipo de erro para deixar bonito
+      if (errorText.includes("Timeout")) {
+        return `⏱️ **Erro de Timeout**\n\n${explanation}`;
+      }
+
+      if (errorText.includes("not found") || errorText.includes("Cannot find") || errorText.includes("never found")) {
+        return `🔍 **Elemento não encontrado no DOM**\n\n${explanation}`;
+      }
+
+      if (errorText.includes("network") || errorText.includes("ECONNREFUSED")) {
+        return `🌐 **Erro de Rede/API**\n\n${explanation}`;
+      }
+
+      // Resposta padrão formatada
+      return `🤖 **Análise da IA**\n\n${explanation}`;
     }
 
-    // Caso a IA responda com um formato inesperado
-    return "❌ Erro: resposta inesperada da IA.";
+    // Se não veio uma resposta válida da IA
+    return "⚠️ Erro: resposta inesperada da IA.";
   } catch (err) {
-    // Captura erros de rede, timeout ou falhas na chamada
+    // Em caso de erro na requisição
     console.error("❌ Erro ao chamar IA:", err.message);
-    return "Erro inesperado ao tentar se comunicar com a IA.";
+    return "🚨 Erro inesperado ao tentar se comunicar com a IA.";
   }
 }
